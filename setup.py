@@ -1,0 +1,21 @@
+from setuptools import setup
+
+setup(name='undone',
+      version='0.1.0',
+      description='generalized undo/redo in python',
+      url='http://github.com/gfetterman/undone',
+      author='Graham Fetterman',
+      author_email='graham.fetterman@gmail.com',
+      license='MIT',
+      classifiers=['Development Status :: 3 - Alpha',
+                   'Intended Audience :: Developers',
+                   'License :: OSI Approved :: MIT License',
+                   'Programming Language :: Python :: 3.4',
+                   'Programming Language :: Python :: 3.5',
+                   'Programming Language :: Python :: 3.6',],
+      keywords='undo redo undostack',
+      packages=['undone',],
+      extras_require={'test': ['pytest'],},
+      python_requires='>=3.4',
+      zip_safe=False,
+      entry_points={})
