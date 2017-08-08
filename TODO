@@ -1,0 +1,13 @@
+# TODO
+
+1. Refactor stacks into children of `UndoStack` class for better type-checks
+2. Add docstrings
+3. Add option to `ReversibleUndoStack` to contain a reference to the resource
+4. Add option to specify `diff` function to `SnapshotUndoStack` to allow more
+   efficient storage of snapshots
+5. Add convenient way to check whether `SnapshotUndoStack.current_state` is
+   unchanged from last snapshot
+6. Add more guidance to readme on how to format operations to be pushed to the
+   first two stack types
+7. Set up Sphinx docs
+8. Add in Python 2 support
