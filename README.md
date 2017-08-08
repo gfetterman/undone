@@ -1,10 +1,10 @@
-# undo stacks
+# undone
 
 Version: 0.1.1
 
 ## Three implementations
 
-There are three basic ways to implement an undo stack. Each has different
+This module offers three undo stack implementations. Each has different
 tradeoffs, and may be better suited to a given situation than the others.
 
 ### 1. Reversible operations
@@ -30,3 +30,22 @@ tradeoffs, and may be better suited to a given situation than the others.
   user, and so can be used as frequently or rarely as desired
 * a more advanced feature involves providing a method to `diff` the snapshots,
   to allow more efficient storage of the snapshots (not implemented yet)
+
+
+## Installation
+
+`undone` is currently only supported on Python 3.4+.
+
+To install:
+```
+$ git clone http://github.com/gfetterman/undone.git
+$ cd undone
+$ pip install .
+
+# to run the tests
+$ pytest -v
+```
+
+## Usage
+
+(Coming soon.)
