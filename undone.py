@@ -2,7 +2,7 @@ import copy
 
 # 1. reversible operations
 
-class RevOpUndoStack:
+class ReversibleUndoStack:
     def __init__(self):
         self.done = []
         self.undone = []
