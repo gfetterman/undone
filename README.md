@@ -1,5 +1,7 @@
 # undo stacks
 
+Version: 0.1.1
+
 ## Three implementations
 
 There are three basic ways to implement an undo stack. Each has different
