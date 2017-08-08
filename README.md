@@ -8,7 +8,7 @@ An undo/redo stack must allow:
 2. Restoring some state to before an action was taken
 3. Re-performing an action that was previously undone
 
-## Three possible implementations
+## Three broad implementations
 
 There are three basic ways to implement an undo stack. Each has different
 tradeoffs, and may be better suited to a given situation than the others.
@@ -16,24 +16,23 @@ tradeoffs, and may be better suited to a given situation than the others.
 ### 1. Reversible operations
 
 * define a class (or named tuple) for each operation, with a well-defined
-  interface - something like "forward_op" and "reverse_op"
+  interface - something like `do` and `undo`
 * hand instances of this class to the stack object
 * doesn't require any handle on the object(s) being modified by the operations
+* but not all operations are easily reversible
+* and it's up to the user to ensure reversibility
 
-### 2. Building from scratch
+### 2. Regenerating current state from scratch
 
-* (optionally) define a class for each operation, with a well-defined
-  interface - something like "execute" or "forward_op", or perhaps just
-  "__call__"
-* hand instances of these classes to the stack object
+* define a function or callable class for each operation
+* hand instances of these objects to the stack object
 * requires a handle on or snapshot of the initial state of the object(s) being
-  modified by the operations; operations probably need to be handed this handle
-  every time they're called
+  modified by the operations; operations must accept this handle as a parameter when called
 
 ### 3. Snapshots
 
 * requires handles on or snapshots of incremental states of the object(s) being
   modified by the operations. These snapshots are triggered explicitly by the
-  user, and so can be used as frequently or as moderately as desired
+  user, and so can be used as frequently or rarely as desired
 * a more advanced feature involves providing a method to `diff` the snapshots,
-  to allow more efficient storage of the snapshots
+  to allow more efficient storage of the snapshots (not implemented yet)
