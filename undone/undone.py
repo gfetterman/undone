@@ -52,18 +52,19 @@ class SnapshotUndoStack:
     def __init__(self, objects):
         self.snapshots = []
         self.forward_snapshots = []
-        self.current_state = objects
-        self.initial_state = self.snap()
+        self.current_state = copy.deepcopy(objects)
+        self.initial_state = copy.deepcopy(objects)
     
     def do(self):
-        self.snapshots.append(copy.deepcopy(self.objects))
+        self.snapshots.append(copy.deepcopy(self.current_state))
     
     def undo(self):
-        state = self.snapshots.pop()
-        self.forward_snapshots.append(state)
-        self.current_state = copy.deepcopy(state)
+        self.forward_snapshots.append(self.snapshots.pop())
+        if self.snapshots:
+            self.current_state = copy.deepcopy(self.snapshots[-1])
+        else:
+            self.current_state = copy.deepcopy(self.initial_state)
     
     def redo(self):
-        state = self.forward_snapshots.pop()
-        self.snapshots.append(state)
-        self.current_state = copy.deepcopy(state)
+        self.snapshots.append(self.forward_snapshots.pop())
+        self.current_state = copy.deepcopy(self.snapshots[-1])
