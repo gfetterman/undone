@@ -9,6 +9,7 @@ class ReversibleUndoStack:
     
     def do(self, op):
         self.done.append(op)
+        self.undone = []
         return op.do()
     
     def undo(self):
@@ -32,6 +33,7 @@ class RegeneratingUndoStack:
     
     def do(self, op):
         self.done.append(op)
+        self.undone = []
         op(self.current_state)
     
     def undo(self):
@@ -57,6 +59,7 @@ class SnapshotUndoStack:
     
     def do(self):
         self.snapshots.append(copy.deepcopy(self.current_state))
+        self.forward_snapshots = []
     
     def undo(self):
         self.forward_snapshots.append(self.snapshots.pop())

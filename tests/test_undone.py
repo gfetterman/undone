@@ -32,6 +32,16 @@ def test_reversible():
     assert resource == [4, 1, 1]
     with pytest.raises(IndexError):
         stack.redo()
+    stack.undo()
+    assert resource == [4, 1]
+    assert stack.done == [adding_one]
+    assert stack.undone == [adding_one]
+    adding_two = Revop(functools.partial(lambda r: r.append(2), r=resource),
+                       functools.partial(remove_one, r=resource))
+    stack.do(adding_two)
+    assert resource == [4, 1, 2]
+    assert stack.done == [adding_one, adding_two]
+    assert stack.undone == []
 
 def test_regenerating():
     resource = [4]
@@ -57,6 +67,16 @@ def test_regenerating():
     assert stack.current_state == [4, 1, 1]
     with pytest.raises(IndexError):
         stack.redo()
+    stack.undo()
+    assert stack.current_state == [4, 1]
+    assert stack.done == [add_one]
+    assert stack.undone == [add_one]
+    def add_two(r):
+        r.append(2)
+    stack.do(add_two)
+    assert stack.current_state == [4, 1, 2]
+    assert stack.done == [add_one, add_two]
+    assert stack.undone == []
 
 def test_snapshot():
     resource = [4]
@@ -101,3 +121,12 @@ def test_snapshot():
     assert not stack.forward_snapshots
     with pytest.raises(IndexError):
         stack.redo()
+    stack.undo()
+    assert stack.current_state == [4, 16]
+    assert stack.snapshots == [[4, 16]]
+    assert stack.forward_snapshots == [['totally', 'new', 'list']]
+    stack.current_state.append(64)
+    stack.do()
+    assert stack.current_state == [4, 16, 64]
+    assert stack.snapshots == [[4, 16], [4, 16, 64]]
+    assert stack.forward_snapshots == []
