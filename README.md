@@ -1,14 +1,6 @@
 # undo stacks
 
-## General interface
-
-An undo/redo stack must allow:
-
-1. Logging actions taken
-2. Restoring some state to before an action was taken
-3. Re-performing an action that was previously undone
-
-## Three broad implementations
+## Three implementations
 
 There are three basic ways to implement an undo stack. Each has different
 tradeoffs, and may be better suited to a given situation than the others.
