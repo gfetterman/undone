@@ -25,7 +25,7 @@ class ReversibleUndoStack:
 
 class RegeneratingUndoStack:
     def __init__(self, initial_state):
-        self.current_state = initial_state
+        self.current_state = copy.deepcopy(initial_state)
         self.initial_state = copy.deepcopy(initial_state)
         self.done = []
         self.undone = []
