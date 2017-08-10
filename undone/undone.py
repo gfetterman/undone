@@ -1,8 +1,11 @@
 import copy
 
+class UndoStack:
+    pass
+
 # 1. reversible operations
 
-class ReversibleUndoStack:
+class ReversibleUndoStack(UndoStack):
     def __init__(self):
         self.done = []
         self.undone = []
@@ -24,7 +27,7 @@ class ReversibleUndoStack:
 
 # 2. built from scratch
 
-class RegeneratingUndoStack:
+class RegeneratingUndoStack(UndoStack):
     def __init__(self, initial_state):
         self.current_state = copy.deepcopy(initial_state)
         self.initial_state = copy.deepcopy(initial_state)
@@ -50,7 +53,7 @@ class RegeneratingUndoStack:
 
 # 3. snapshots
 
-class SnapshotUndoStack:
+class SnapshotUndoStack(UndoStack):
     def __init__(self, objects):
         self.snapshots = []
         self.forward_snapshots = []

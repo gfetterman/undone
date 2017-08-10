@@ -1,6 +1,5 @@
 # TODO
 
-1. Refactor stacks into children of `UndoStack` class for better type-checks
 2. Add docstrings
 3. Add option to `ReversibleUndoStack` to contain a reference to the resource
 4. Add option to specify `diff` function to `SnapshotUndoStack` to allow more
