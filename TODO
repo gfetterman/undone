@@ -12,4 +12,3 @@
 7. Set up Sphinx docs
 8. Add in Python 2 support
 9. Add option to specify max depth of undo stacks
-10. Refactor test code
