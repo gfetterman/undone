@@ -75,8 +75,7 @@ def test_snapshot():
     stack.do()
     assert stack.current_state == SECOND_STATE
     assert stack.snapshots == [SECOND_STATE]
-    stack.current_state = FIFTH_STATE
-    stack.do()
+    stack.do(new_state=FIFTH_STATE)
     assert stack.current_state == FIFTH_STATE
     assert stack.snapshots[-1] == FIFTH_STATE
     stack.undo()

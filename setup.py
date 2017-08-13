@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='undone',
-      version='0.1.1',
+      version='0.2',
       description='generalized undo/redo in python',
       url='http://github.com/gfetterman/undone',
       author='Graham Fetterman',

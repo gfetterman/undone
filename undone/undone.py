@@ -113,7 +113,9 @@ class SnapshotUndoStack(UndoStack):
         self.current_state = copy.deepcopy(objects)
         self.initial_state = copy.deepcopy(objects)
     
-    def do(self):
+    def do(self, new_state=None):
+        if new_state is not None:
+            self.current_state = new_state
         self.snapshots.append(copy.deepcopy(self.current_state))
         self.forward_snapshots = []
     
