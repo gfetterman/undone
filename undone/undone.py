@@ -84,8 +84,9 @@ class RegeneratingUndoStack(UndoStack):
         self._regenerate()
     
     def redo(self):
-        self.done.append(self.undone.pop())
-        self._regenerate()
+        op = self.undone.pop()
+        self.done.append(op)
+        op(self.current_state)
     
     def _regenerate(self):
         self.current_state = copy.deepcopy(self.initial_state)
