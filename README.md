@@ -1,40 +1,40 @@
 # undone
 
-Version: 0.1.1
+Version: 0.2
 
 ## Three implementations
 
 This module offers three undo stack implementations. Each has different
 tradeoffs, and may be better suited to a given situation than the others.
 
-### 1. Reversible operations
+### 1. `ReversibleUndoStack`: reversible operations
 
-* define a class (or named tuple) for each operation, with a well-defined
-  interface - something like `do` and `undo`
-* hand instances of this class to the stack object
+* define a class (or named tuple) for each operation, with "do" and "undo"
+  methods
+* hand instances of these classes to the stack object
 * doesn't require any handle on the object(s) being modified by the operations
-* but not all operations are easily reversible
-* and it's up to the user to ensure reversibility
+* up to the user to ensure reversibility, which in some cases can be quite
+  difficult
+* least memory and runtime overhead for operations
 
-### 2. Regenerating current state from scratch
+### 2. `RegeneratingUndoStack`: regenerating current state from scratch
 
-* define a function or callable class for each operation
+* define a callable object for each operation
 * hand instances of these objects to the stack object
 * requires a handle on or snapshot of the initial state of the object(s) being
   modified by the operations; operations must accept this handle as a parameter when called
+* higher overhead, especially for `undo` operation
 
-### 3. Snapshots
+### 3. `SnapshotUndoStack`: state-oriented
 
 * requires handles on or snapshots of incremental states of the object(s) being
-  modified by the operations. These snapshots are triggered explicitly by the
-  user, and so can be used as frequently or rarely as desired
-* a more advanced feature involves providing a method to `diff` the snapshots,
-  to allow more efficient storage of the snapshots (not implemented yet)
-
+  modified. These snapshots are triggered explicitly by the user, and may be 
+  taken as frequently or rarely as desired
+* can involve significant memory overhead in the worst case
 
 ## Installation
 
-`undone` is currently only supported on Python 3.4+.
+`undone` works under Python 2.7 and Python 3.3+.
 
 To install:
 ```
