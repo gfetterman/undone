@@ -6,5 +6,4 @@
 6. Add more guidance to readme on how to format operations to be pushed to the
    first two stack types
 7. Set up Sphinx docs
-8. Add in Python 2 support
 9. Add option to specify max depth of undo stacks
