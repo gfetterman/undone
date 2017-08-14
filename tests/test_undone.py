@@ -9,6 +9,7 @@ THIRD_STATE = [4, 1, 1]
 FOURTH_STATE = [4, 1, 2]
 FIFTH_STATE = ['totally', 'new', 'list']
 SIXTH_STATE = [4, 64, 256]
+SEVENTH_STATE = [4, 64, 256, 1024]
 
 def common_tests(stack, resource, ops):
     stack.do(ops[0])
@@ -69,10 +70,16 @@ def test_snapshot():
     assert not stack.snapshots
     assert not stack.forward_snapshots
     stack.current_state.append(1)
+    assert not stack.clean
     assert stack.current_state == SECOND_STATE
     assert not stack.snapshots
     assert not stack.forward_snapshots
+    stack.discard_changes()
+    assert stack.current_state == INITIAL_STATE
+    assert stack.clean
+    stack.current_state.append(1)
     stack.do()
+    assert stack.clean
     assert stack.current_state == SECOND_STATE
     assert stack.snapshots == [SECOND_STATE]
     stack.do(new_state=FIFTH_STATE)
@@ -108,3 +115,9 @@ def test_snapshot():
     assert stack.current_state == SIXTH_STATE
     assert stack.snapshots == [SECOND_STATE, SIXTH_STATE]
     assert not stack.forward_snapshots
+    stack.current_state.append(1024)
+    assert stack.current_state == SEVENTH_STATE
+    assert not stack.clean
+    stack.discard_changes()
+    assert stack.current_state == SIXTH_STATE
+    assert stack.clean

@@ -129,3 +129,17 @@ class SnapshotUndoStack(UndoStack):
     def redo(self):
         self.snapshots.append(self.forward_snapshots.pop())
         self.current_state = copy.deepcopy(self.snapshots[-1])
+    
+    @property
+    def clean(self):
+        if self.snapshots:
+            return self.current_state == self.snapshots[-1]
+        else:
+            return self.current_state == self.initial_state
+    
+    def discard_changes(self):
+        if not self.clean:
+            if self.snapshots:
+                self.current_state = copy.deepcopy(self.snapshots[-1])
+            else:
+                self.current_state = copy.deepcopy(self.initial_state)
